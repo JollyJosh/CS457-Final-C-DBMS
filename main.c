@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "recordAttribute.h"
+#include "record.h"
 
 int main() {
     printf("Hello, World!\n");
