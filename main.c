@@ -66,17 +66,37 @@ int main() {
     printf("\n");
     printRecord(record6);
 
+    //Record 7
+    RecordAttribute *attribute1111111 = newRecordAtt("Num", 512512);
+    RecordAttribute *attribute1222222 = newRecordAtt("Badge", 1233);
+    Record *record7 = newRecord(++docid, ++sysid, vn);
+    insertAttribute(record7, attribute1111111);
+    insertAttribute(record7, attribute1222222);
+    printf("\n");
+    printRecord(record7);
+
+    //Record 8
+    RecordAttribute *attribute11111111 = newRecordAtt("Num", 123123123);
+    RecordAttribute *attribute12222222 = newRecordAtt("Badge", 123123123);
+    Record *record8 = newRecord(0, ++sysid, vn);
+    insertAttribute(record8, attribute11111111);
+    insertAttribute(record8, attribute12222222);
+    printf("\n");
+    printRecord(record8);
+
     //Insert the records and make sure to reset the head each update
 
+    head = insertNextRecord(head, record8, NULL, NULL);
     head = insertNextRecord(head, record2, NULL, NULL);
     head = insertNextRecord(head, record3, NULL, NULL);
     head = insertNextRecord(head, record4, NULL, NULL);
     head = insertNextRecord(head, record5, NULL, NULL);
     head = insertNextRecord(head, record6, NULL, NULL);
+    head = insertNextRecord(head, record7, NULL, NULL);
+
 
     printf("\n =========================== \n");
     printRecordList(head);
-
 
     return 0;
 }

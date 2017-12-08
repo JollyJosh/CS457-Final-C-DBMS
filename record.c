@@ -123,38 +123,30 @@ void printRecord(Record *r) {
 
 }
 
-bool printRecordList(Record *head)  {
+void printRecordList(Record *head)  {
     /* This function will print the entire list of records from the beginning record to the
      * end of the list. Meaning if the first record is passed, it will print all the records in the
-     * list, if the second is passed it will be from that record on.
+     * list, if the second is passed it will be from that record on by looping through the version list.
      */
 
-//    while(head != NULL) {
-//        printRecord(head);
-//        printf("\n");
-//        head = head->nextRecord;
-//    }
-
-    if(head->nextVersion == NULL && head->nextRecord == NULL)   {
-        //Done recurring
-        printRecord(head);
-        printf("\n");
-        return true;
+    while(head != NULL) {
+        printVersionList(head);
+        head = head->nextRecord;
     }
-
-    else if(head->nextVersion != NULL)  {
-        printRecord(head);
-        printf("\n");
-        printRecordList(head->nextVersion);
-    }
-
-    else if(head->nextRecord != NULL)   {
-        printRecord(head);
-        printf("\n");
-        printRecordList(head->nextRecord);
-    }
-
 
 }
+
+void printVersionList(Record *first)    {
+    /* This function will print the entire version list of a head version pointer
+     */
+
+    while(first != NULL)    {
+        printRecord(first);
+        printf("\n");
+        first = first->nextVersion;
+    }
+
+}
+
 
 

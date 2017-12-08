@@ -23,7 +23,8 @@ Record *newRecord(int, int, int);
 Record *insertAttribute(Record *, RecordAttribute *);
 void printRecord(Record *);
 Record *insertNextRecord(Record *, Record *, Record *, Record *);
-bool printRecordList(Record *);
+void printRecordList(Record *);
+void printVersionList(Record *);
 void setRecordVersion(Record *, int);
 
 #endif //FINAL_RECORD_H
