@@ -15,7 +15,7 @@ RecordAttribute *newEmptyRecordAtt(void)    {
 
     r->name = "";
     r->next = NULL;
-    r->value = NULL;
+    r->value = 0;
 
     return r;
 }
@@ -45,3 +45,4 @@ void setRecordAttName(RecordAttribute *curr,char *nme)  {
 void setRecordAttVal(RecordAttribute *curr, int val)    {
     curr->value = val;
 }
+
