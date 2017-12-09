@@ -6,7 +6,7 @@
 #define FINAL_RECORDATTRIBUTE_H
 
 typedef struct recordAttribute  {
-    char * name;
+    char *name;
     int value;
     struct recordAttribute *next;
 } RecordAttribute;

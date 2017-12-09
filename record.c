@@ -24,6 +24,28 @@ Record *newEmptyRecord(void)    {
     return r;
 }
 
+Record *newRecordWithoutDoc(int sys,int vNum)   {
+    Record *r = malloc(sizeof(Record));
+
+    //Memory Check
+    if(r == NULL)   {
+        printf("Memory Allocation Failure for New Record Type.");
+    }
+
+    r->docid = NULL;
+    r->sysid = sys;
+    r->vn = vNum;
+    r->nextRecord = NULL;
+    r->nextVersion = NULL;
+    r->firstAtt = NULL;
+
+    return r;
+}
+
+void setDocID(Record *r, int docID)    {
+    r->docid = docID;
+}
+
 Record *newRecord(int doc, int sys, int vNum) {
     Record *r = malloc(sizeof(Record));
     //Memory Check

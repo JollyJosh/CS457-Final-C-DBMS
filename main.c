@@ -111,8 +111,11 @@ int main() {
     }
 
     char ch;
+    Record *head;
 
-//    while(!(feof(fp))) {
+    while(!(feof(fp))) {
+
+        Record *nuRecord = newRecordWithoutDoc(sysID++, vn);
 
         while (!(feof(fp))) {
             ch = getc(fp);
@@ -121,7 +124,7 @@ int main() {
             }
             ungetc(ch, fp);
 
-            char attributeName[250] = {0};
+            char *attributeName = malloc(sizeof(char) * 250);
             char attributeValue[250] = {0};
             int i1 = 0, i2 = 0;
 
@@ -149,20 +152,35 @@ int main() {
             //Converts a char array to its int value
             sscanf(attributeValue, "%d", &attributeNum);
 
+            //----Debug------
             //printf("%s \n", attributeName);
             //printf("%d \n\n", attributeNum);
 
-            Record *nuRecord;
-
             if (strcmp(attributeName, "DocID") == 0) {
-                nuRecord = newRecord(attributeNum, sysID, vn);
-                printRecord(nuRecord);
+                //This is a docID
+                setDocID(nuRecord, attributeNum);
+//                printRecord(nuRecord);
+            } else {
+                //This is an attribute
+                RecordAttribute *ra = newRecordAtt(attributeName, attributeNum);
+                insertAttribute(nuRecord, ra);
             }
 
 
         }
 
-//    }
+        if (head == NULL) {
+            //Need to make head
+            head = nuRecord;
+        } else {
+            //Head already exists
+            head = insertNextRecord(head, nuRecord, NULL, NULL);
+        }
+
+    }
+
+    printRecordList(head);
+
 
     fclose(fp);
     return 0;
