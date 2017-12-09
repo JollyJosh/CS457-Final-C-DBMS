@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
 #include "recordAttribute.h"
 #include "record.h"
 
 int main() {
 
 
-//  If you want to see the ugliest debug code ever, look no further!
+/*  If you want to see the ugliest debug code ever, look no further!
 
     int vn = 1, sysid = 0, docid = 0;
 
@@ -96,7 +98,75 @@ int main() {
 
 
     printf("\n =========================== \n");
-    printRecordList(head);
+    printRecordList(head);*/
 
+    FILE *fp = fopen("/Users/joshcollins/cs457/Final/data.txt", "r");
+
+    /* Variables for setting ID's and VN's */
+    int vn = 1, sysID = 1;
+
+    if(fp == NULL)  {
+        fprintf(stderr, "File could not be open for reading.");
+        exit(1);
+    }
+
+    char ch;
+
+//    while(!(feof(fp))) {
+
+        while (!(feof(fp))) {
+            ch = getc(fp);
+            if (ch == '\n') {
+                break;
+            }
+            ungetc(ch, fp);
+
+            char attributeName[250] = {0};
+            char attributeValue[250] = {0};
+            int i1 = 0, i2 = 0;
+
+            while (!(feof(fp))) {
+                ch = getc(fp);
+                if (ch == ':') {
+                    break;
+                }
+                attributeName[i1++] = ch;
+            }
+
+            while (!(feof(fp))) {
+                ch = getc(fp);
+                if (ch == ' ') {
+                    break;
+                }
+                if (ch == '\n') {
+                    ungetc(ch, fp);
+                    break;
+                }
+                attributeValue[i2++] = ch;
+            }
+
+            int attributeNum;
+            //Converts a char array to its int value
+            sscanf(attributeValue, "%d", &attributeNum);
+
+            //printf("%s \n", attributeName);
+            //printf("%d \n\n", attributeNum);
+
+            Record *nuRecord;
+
+            if (strcmp(attributeName, "DocID") == 0) {
+                nuRecord = newRecord(attributeNum, sysID, vn);
+                printRecord(nuRecord);
+            }
+
+
+        }
+
+//    }
+
+    fclose(fp);
     return 0;
 }
+
+
+
