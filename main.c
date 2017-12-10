@@ -4,6 +4,11 @@
 #include "recordAttribute.h"
 #include "record.h"
 
+int countQuery(FILE *,Record *);
+void sortQuery(FILE *,Record *);
+void insertQuery(FILE *,Record *);
+void standardQuery(FILE *,Record *);
+
 int main() {
 
 
@@ -100,14 +105,73 @@ int main() {
 
     fclose(fp);
 /*
-    ================================ E N D  R E A D=============================
+    ================================ E N D  R E A D =============================
 */
 
+/*
+    ================================ B E G I N  Q U E R I E S  R E A D ==========
+*/
+
+    FILE *fp2 = fopen("/Users/joshcollins/cs457/Final/queries.txt", "r");
 
 
+    if(fp2 == NULL)  {
+        fprintf(stderr, "File could not be open for reading.");
+        exit(1);
+    }
 
+    char x;
+
+    while(!(feof(fp2)))  {
+        x = getc(fp2);
+        if(x == '.')    {
+            break;
+        }
+    }
+
+    int count;
+    printf("%c\n ", x);
+
+    x = getc(fp2);
+
+    if(x == 'i')    {
+        //Insert Query
+        insertQuery(fp2, head);
+    }
+    else if(x == 'c')   {
+        //Count Query
+        count = countQuery(fp2, head);
+    }
+    else if(x == 's')   {
+        //Sort Query
+        sortQuery(fp2, head);
+    }
+    else    {
+        //Run Query
+        standardQuery(fp2, head);
+    }
+
+/*
+    ================================ E N D  R E A D =============================
+*/
 
     return 0;
+}
+
+int countQuery(FILE *fp,Record *head) {
+
+}
+
+void sortQuery(FILE *fp,Record *head)   {
+
+}
+
+void insertQuery(FILE *fp,Record *head)    {
+
+}
+
+void standardQuery(FILE *fp,Record *head)   {
+
 }
 
 
