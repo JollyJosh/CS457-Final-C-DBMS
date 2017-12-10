@@ -6,25 +6,25 @@
 
 int main() {
 
-    /* File handling and error checking */
+
+/*
+ +    This is the code to read in the data, conduct the versioning of multiple records,
+ +    and create a three deminsional linked list cube structure that acts as a list of
+ +    unique records, which have a list of versions with the same docID, which has a list
+ +    of attribute nodes attached to it.
+ +
+ +    ================================ R E A D  I N  D A T A =============================
+ +*/
+
     FILE *fp = fopen("/Users/joshcollins/cs457/Final/data.txt", "r");
+
+    /* Variables for setting ID's and VN's */
+    int vn = 1, sysID = 1;
 
     if(fp == NULL)  {
         fprintf(stderr, "File could not be open for reading.");
         exit(1);
     }
-
-
-/*
-    This is the code to read in the data, conduct the versioning of multiple records,
-    and create a three deminsional linked list cube structure that acts as a list of
-    unique records, which have a list of versions with the same docID, which has a list
-    of attribute nodes attached to it.
-
-    ================================ R E A D  I N  D A T A =============================
-*/
-    /* Variables for setting ID's and VN's */
-    int vn = 1, sysID = 1;
 
     char ch;
     Record *head;
@@ -75,6 +75,7 @@ int main() {
             if (strcmp(attributeName, "DocID") == 0) {
                 //This is a docID
                 setDocID(nuRecord, attributeNum);
+//                printRecord(nuRecord);
             } else {
                 //This is an attribute
                 RecordAttribute *ra = newRecordAtt(attributeName, attributeNum);
@@ -93,14 +94,19 @@ int main() {
         }
 
     }
-/*
-    ================================ E N D  R E A D=============================
-*/
 
     printRecordList(head);
 
 
     fclose(fp);
+/*
+    ================================ E N D  R E A D=============================
+*/
+
+
+
+
+
     return 0;
 }
 

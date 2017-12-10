@@ -1,0 +1,2 @@
+final.count([Dept], [])
+final.count([Dept])
