@@ -1,1 +1,11 @@
-final.count([Dept][])
+final.count([Dept] [])
+final.insert(DocID:999 Dept:4)
+final.count([Dept] [])
+final.insert(DocID:999 Dept:4 House:2)
+final.insert(DocID:999 Dept:4 Limo:3 Homer:142)
+final.insert(DocID:999 Dept:4 Nice:12)
+final.count([Dept] [2])
+final.count([Dept])
+final.count([House] [])
+
+

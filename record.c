@@ -128,7 +128,7 @@ Record *insertAttribute(Record *r, RecordAttribute *att)    {
     }
 }
 
-void printRecord(Record *r) {
+void printRecord(FILE *fp, Record *r) {
     /* This function will print a record as well as all of the current attributes,
      * that that record contains.
      */
@@ -137,36 +137,36 @@ void printRecord(Record *r) {
 
     //Print the record's data
 //    printf("DocID: %i, SysID: %i, Version Number: %i \n", r->docid, r->sysid, r->vn);
-    printf("vn: %i sysid: %i DocID: %i ", r->vn, r->sysid, r->docid);
+    fprintf(fp, "vn: %i sysid: %i DocID: %i ", r->vn, r->sysid, r->docid);
 
     //Loop through the attributes list and print its data
     while(curr != NULL) {
-        printf("%s: %i ", curr->name, curr->value);
+        fprintf(fp, "%s: %i ", curr->name, curr->value);
         curr = curr->next;
     }
 
 }
 
-void printRecordList(Record *head)  {
+void printRecordList(FILE *fp, Record *head)  {
     /* This function will print the entire list of records from the beginning record to the
      * end of the list. Meaning if the first record is passed, it will print all the records in the
      * list, if the second is passed it will be from that record on by looping through the version list.
      */
 
     while(head != NULL) {
-        printVersionList(head);
+        printVersionList(fp, head);
         head = head->nextRecord;
     }
 
 }
 
-void printVersionList(Record *first)    {
+void printVersionList(FILE *fp, Record *first)    {
     /* This function will print the entire version list of a head version pointer
      */
 
     while(first != NULL)    {
-        printRecord(first);
-        printf("\n");
+        printRecord(fp, first);
+        fprintf(fp, "\n");
         first = first->nextVersion;
     }
 
