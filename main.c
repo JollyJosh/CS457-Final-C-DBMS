@@ -6,7 +6,7 @@
 
 int countQuery(FILE *,Record *);
 void sortQuery(FILE *,Record *);
-void insertQuery(FILE *,Record *);
+Record *insertQuery(FILE *,Record *,int);
 void standardQuery(FILE *,Record *);
 
 int main() {
@@ -130,13 +130,16 @@ int main() {
     }
 
     int count;
-    printf("%c\n ", x);
+    //Debug
+//    printf("%c\n ", x);
 
     x = getc(fp2);
 
     if(x == 'i')    {
         //Insert Query
-        insertQuery(fp2, head);
+        head = insertQuery(fp2, head, sysID);
+        sysID++;
+        printRecordList(head);
     }
     else if(x == 'c')   {
         //Count Query
@@ -151,7 +154,8 @@ int main() {
         standardQuery(fp2, head);
     }
 
-    printf("HERE IS THE COUNT %d \n", count);
+      //DEBUG
+//    printf("HERE IS THE COUNT %d \n", count);
 
 /*
     ================================ E N D  R E A D =============================
@@ -189,6 +193,7 @@ int countQuery(FILE *fp,Record *head) {
 
     if(ch == ')')   {
         count = countWithField(head, attributeName);
+        printf("count_%s : %i \n", attributeName, count);
         return count;
     }
 
@@ -208,6 +213,7 @@ int countQuery(FILE *fp,Record *head) {
 
     if(ch == ']')   {
         count = countWithFieldAll(head, attributeName);
+        printf("count_%s : %i \n", attributeName, count);
         return count;
     }
     else {
@@ -221,6 +227,7 @@ int countQuery(FILE *fp,Record *head) {
         }
         sscanf(versionNumber, "%d", &intVN);
         count = countWithFieldVers(head, intVN, attributeName);
+        printf("count_%s : %i \n", attributeName, count);
         return count;
     }
 }
@@ -229,8 +236,69 @@ void sortQuery(FILE *fp,Record *head)   {
 
 }
 
-void insertQuery(FILE *fp,Record *head)    {
+Record *insertQuery(FILE *fp3,Record *head,int sysID)    {
+    //Return head
+    char ch;
+    Record *nuRecord = newRecordWithoutDoc(sysID, 1);
 
+
+    while (true) {
+        ch = getc(fp3);
+        if (ch == '(') {
+            break;
+        }
+    }
+
+    while(true) {
+        if(ch == ')')   {
+            break;
+        }
+        ch = getc(fp3);
+        if(ch == ')')   {
+            break;
+        }
+        ungetc(ch, fp3);
+        char *attributeName = malloc(sizeof(char) * 250);
+        char attributeValue[250] = {0};
+        int i1 = 0, i2 = 0;
+
+        while (true) {
+            ch = getc(fp3);
+            if (ch == ':') {
+                break;
+            }
+            attributeName[i1++] = ch;
+        }
+
+        while(true) {
+            ch = getc(fp3);
+            if(ch == ' ' || ch == ')')   {
+                break;
+            }
+            attributeValue[i2++] = ch;
+        }
+
+        int attributeNum;
+        //Converts a char array to its int value
+        sscanf(attributeValue, "%d", &attributeNum);
+
+        if (strcmp(attributeName, "DocID") == 0) {
+            setDocID(nuRecord, attributeNum);
+        } else {
+            RecordAttribute *ra = newRecordAtt(attributeName, attributeNum);
+            insertAttribute(nuRecord, ra);
+        }
+    }
+
+    if (head == NULL) {
+        //Need to make head
+        head = nuRecord;
+    } else {
+        //Head already exists
+        head = insertNextRecord(head, nuRecord, NULL, NULL);
+    }
+
+    return head;
 }
 
 void standardQuery(FILE *fp,Record *head)   {

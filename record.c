@@ -136,11 +136,12 @@ void printRecord(Record *r) {
     RecordAttribute *curr = r->firstAtt;
 
     //Print the record's data
-    printf("DocID: %i, SysID: %i, Version Number: %i \n", r->docid, r->sysid, r->vn);
+//    printf("DocID: %i, SysID: %i, Version Number: %i \n", r->docid, r->sysid, r->vn);
+    printf("vn: %i sysid: %i DocID: %i ", r->vn, r->sysid, r->docid);
 
     //Loop through the attributes list and print its data
     while(curr != NULL) {
-        printf("    Attribute Name: %s, Attribute Value: %i \n", curr->name, curr->value);
+        printf("%s: %i ", curr->name, curr->value);
         curr = curr->next;
     }
 
