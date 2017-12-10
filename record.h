@@ -28,5 +28,9 @@ Record *insertNextRecord(Record *, Record *, Record *, Record *);
 void printRecordList(Record *);
 void printVersionList(Record *);
 void setRecordVersion(Record *, int);
+int countWithField(Record *,char *);
+int recordHaveAttribute(Record *,char *);
+int countWithFieldAll(Record *,char *);
+int countWithFieldVers(Record *,int,char *);
 
 #endif //FINAL_RECORD_H

@@ -1,2 +1,1 @@
-final.count([Dept], [])
-final.count([Dept])
+final.count([Dept], [1])

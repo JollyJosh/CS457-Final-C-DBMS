@@ -151,6 +151,8 @@ int main() {
         standardQuery(fp2, head);
     }
 
+    printf("HERE IS THE COUNT %d \n", count);
+
 /*
     ================================ E N D  R E A D =============================
 */
@@ -160,6 +162,67 @@ int main() {
 
 int countQuery(FILE *fp,Record *head) {
 
+    int ch;
+    char *attributeName = malloc(sizeof(char) * 250);
+    int i = 0;
+    int count = -1;
+
+    //Get to the first attribute name
+    while(!feof(fp))    {
+        ch = getc(fp);
+        if(ch == '[')   {
+            break;
+        }
+    }
+
+    //Build attribute name
+    while(true) {
+        ch = getc(fp);
+        if(ch == ']')   {
+            break;
+        }
+        attributeName[i++] = ch;
+    }
+
+    //Check if end
+    ch = getc(fp);
+
+    if(ch == ')')   {
+        count = countWithField(head, attributeName);
+        return count;
+    }
+
+    char versionNumber[50];
+    int intVN;
+    int index = 0;
+
+    while(true) {
+        ch = getc(fp);
+        if(ch == '[')   {
+            break;
+        }
+    }
+
+    //See if empty second param
+    ch = getc(fp);
+
+    if(ch == ']')   {
+        count = countWithFieldAll(head, attributeName);
+        return count;
+    }
+    else {
+        versionNumber[index++] = ch;
+        while (true) {
+            ch = getc(fp);
+            if(ch == ']')   {
+                break;
+            }
+            versionNumber[index++] = ch;
+        }
+        sscanf(versionNumber, "%d", &intVN);
+        count = countWithFieldVers(head, intVN, attributeName);
+        return count;
+    }
 }
 
 void sortQuery(FILE *fp,Record *head)   {

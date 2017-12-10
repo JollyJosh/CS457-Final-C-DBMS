@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <memory.h>
 #include "record.h"
 
 Record *newEmptyRecord(void)    {
@@ -170,5 +171,87 @@ void printVersionList(Record *first)    {
 
 }
 
+int countWithField(Record *head,char *field)    {
+    int count = 0;
+
+    while(head != NULL) {
+        if(recordHaveAttribute(head, field))    {
+            count++;
+            head = head->nextRecord;
+        }
+        else {
+            head = head->nextRecord;
+        }
+    }
+
+    return count;
+}
+
+int recordHaveAttribute(Record *r,char *field)  {
+
+
+    while(r->firstAtt != NULL) {
+        if (strcmp(r->firstAtt->name, field) == 0) {
+            return 1;
+        } else {
+            r->firstAtt = r->firstAtt->next;
+        }
+    }
+
+    return 0;
+
+}
+
+int countWithFieldAll(Record *head,char *field) {
+    int count = 0;
+
+    Record *currRoot = head;
+
+    while(head != NULL) {
+
+        while(currRoot != NULL) {
+            if(recordHaveAttribute(currRoot, field))    {
+                count++;
+                currRoot = currRoot->nextVersion;
+            }
+            else    {
+                currRoot = currRoot->nextVersion;
+            }
+        }
+        head = head->nextRecord;
+        currRoot = head;
+    }
+
+    return count;
+}
+
+int countWithFieldVers(Record *head,int ver, char *field)   {
+    int count = 0;
+
+    Record *currRoot = head;
+
+    while(head != NULL) {
+
+        while(currRoot != NULL) {
+
+            if(currRoot->vn != ver) {
+                currRoot = currRoot->nextVersion;
+            }
+
+            else    {
+                if(recordHaveAttribute(currRoot, field))    {
+                    count++;
+                    break;
+                }
+                currRoot = currRoot->nextVersion;
+            }
+        }
+
+        head = head->nextRecord;
+        currRoot = head;
+    }
+
+    return count;
+}
 
 
