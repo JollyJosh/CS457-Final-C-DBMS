@@ -59,7 +59,7 @@ II. Design
 
     /******************/        /******************/        /******************/
     /*                */        /*                */        /*                */
-    /*   Record 1     */   =>   /*   Record 2     */   =>   /*   Record 3     */
+    /*   Record 1     */   =>   /*   Record 2     */   =>   /*   Record 3     */    => ....
     /*   Version 1    */        /*   Version 1    */        /*   Version 1    */
     /*                */        /*                */        /*                */
     /******************/        /******************/        /******************/
@@ -74,8 +74,28 @@ II. Design
     /*                */        /*                */        /*                */
     /******************/        /******************/        /******************/
 
+            ||                           ||                          ||
+            vv                           vv                          vv
+
+           ....                         ....                        ....
+
     From here every record has a list of record attributes attached to it,
     as seen in the following frame:
 
-    Record Attribute Structure
-    --------------------------
+    Record Attribute Structure (Third Dimension)
+    --------------------------------------------
+
+     /******************/        /******************/        /******************/
+     /*                */  First /*                */  Next  /*                */
+     /*                */  Attr  /*  Record Attr 1 */  Attr  /*  Record Attr 2 */
+     /*   Record 1     */   =>   /*  Record 1      */   =>   /*  Record 1      */   =>  ....
+     /*   Version 1    */        /*  Version 1     */        /*  Version 1     */
+     /*                */        /*                */        /*                */
+     /******************/        /******************/        /******************/
+
+     Unfortunately storing records and record attributes this way can lead to rather
+     long run times. In the case of searching for records which contain a particular
+     attribute, the user can expect an O(n^3) run time to search the whole list. When
+     searching for a particular record in general, a user can expect an O(n^2) run time.
+     Future improvements to this project include using hashing and various other structure
+     methods to improve efficiency for storing data.
