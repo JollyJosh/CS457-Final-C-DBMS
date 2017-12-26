@@ -11,7 +11,6 @@ typedef struct recordAttribute  {
     struct recordAttribute *next;
 } RecordAttribute;
 
-RecordAttribute *newEmptyRecordAtt(void);
 RecordAttribute *newRecordAtt(char *, int);
 
 #endif //FINAL_RECORDATTRIBUTE_H
