@@ -18,11 +18,9 @@ typedef struct record   {
     RecordAttribute *firstAtt;
 } Record;
 
-Record *newEmptyRecord(void);
-Record *newRecord(int, int, int);
 Record *newRecordWithoutDoc(int, int);
 void setDocID(Record *, int);
-Record *insertAttribute(Record *, RecordAttribute *);
+RecordAttribute *insertAttribute(Record *, RecordAttribute *);
 void printRecord(FILE *,Record *);
 Record *insertNextRecord(Record *, Record *, Record *, Record *);
 void printRecordList(FILE *,Record *);

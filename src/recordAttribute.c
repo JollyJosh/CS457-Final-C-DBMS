@@ -34,15 +34,5 @@ RecordAttribute *newRecordAtt(char *nme, int val)   {
     return r;
 }
 
-void setRecordAttNext(RecordAttribute *curr, RecordAttribute *toBeNext) {
-    curr->next = toBeNext;
-}
 
-void setRecordAttName(RecordAttribute *curr,char *nme)  {
-    curr->name = nme;
-}
-
-void setRecordAttVal(RecordAttribute *curr, int val)    {
-    curr->value = val;
-}
 

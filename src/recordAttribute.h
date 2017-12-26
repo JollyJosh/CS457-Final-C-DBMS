@@ -13,8 +13,5 @@ typedef struct recordAttribute  {
 
 RecordAttribute *newEmptyRecordAtt(void);
 RecordAttribute *newRecordAtt(char *, int);
-void setRecordAttNext(RecordAttribute *, RecordAttribute *);
-void setRecordAttName(RecordAttribute *,char *);
-void setRecordAttVal(RecordAttribute *, int);
 
 #endif //FINAL_RECORDATTRIBUTE_H

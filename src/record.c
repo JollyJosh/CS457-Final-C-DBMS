@@ -8,23 +8,6 @@
 #include <memory.h>
 #include "record.h"
 
-Record *newEmptyRecord(void)    {
-    Record *r = malloc(sizeof(Record));
-    //Memory Check
-    if(r == NULL)   {
-        printf("Memory Allocation Failure for New Record Type.");
-    }
-
-    r->docid = 0;
-    r->sysid = 0;
-    r->firstAtt = NULL;
-    r->nextVersion = NULL;
-    r->nextRecord = NULL;
-    r->vn = 0;
-
-    return r;
-}
-
 Record *newRecordWithoutDoc(int sys,int vNum)   {
     Record *r = malloc(sizeof(Record));
 
@@ -33,7 +16,7 @@ Record *newRecordWithoutDoc(int sys,int vNum)   {
         printf("Memory Allocation Failure for New Record Type.");
     }
 
-    r->docid = NULL;
+    r->docid = 0;
     r->sysid = sys;
     r->vn = vNum;
     r->nextRecord = NULL;
@@ -45,22 +28,6 @@ Record *newRecordWithoutDoc(int sys,int vNum)   {
 
 void setDocID(Record *r, int docID)    {
     r->docid = docID;
-}
-
-Record *newRecord(int doc, int sys, int vNum) {
-    Record *r = malloc(sizeof(Record));
-    //Memory Check
-    if(r == NULL)   {
-        printf("Memory Allocation Failure for New Record Type.");
-    }
-    r->docid = doc;
-    r->sysid = sys;
-    r->vn = vNum;
-    r->nextVersion = NULL;
-    r->nextRecord = NULL;
-    r->firstAtt = NULL;
-
-    return r;
 }
 
 void setRecordVersion(Record *r, int ver)   {
@@ -105,7 +72,7 @@ Record *insertNextRecord(Record *head, Record *toBeAdded, Record *prev, Record *
     return insertNextRecord(head->nextRecord, toBeAdded, head, start);
 }
 
-Record *insertAttribute(Record *r, RecordAttribute *att)    {
+RecordAttribute *insertAttribute(Record *r, RecordAttribute *att)    {
     /* This function checks to see if a record has any current attributes.
      * if it does, the function will add the attribute to the end of the list.
      * If not, the function will add it as the first attribute for that record.
@@ -116,6 +83,7 @@ Record *insertAttribute(Record *r, RecordAttribute *att)    {
     if(r->firstAtt == NULL) {
         //This record currently does not have any attributes
         r->firstAtt = att;
+        return r->firstAtt;
     }
     else    {
         //This record has at least one attribute already.
@@ -125,7 +93,9 @@ Record *insertAttribute(Record *r, RecordAttribute *att)    {
         }
         //Add the attribute at the end of the list.
         curr->next = att;
+        return curr->next;
     }
+
 }
 
 void printRecord(FILE *fp, Record *r) {
