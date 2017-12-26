@@ -1,0 +1,66 @@
+,--.   ,--.       ,--.                                    ,--.             ,------. ,------.  ,-----.        ,------.  ,-----.
+|  |   |  | ,---. |  | ,---. ,---. ,--,--,--. ,---.     ,-'  '-. ,---.     |  .--. '|  .--. ''  .-.  ',-----.|  .-.  \ |  |) /_
+|  |.'.|  || .-. :|  || .--'| .-. ||        || .-. :    '-.  .-'| .-. |    |  '--' ||  '--'.'|  | |  |'-----'|  |  \  :|  .-.  \
+|   ,'.   |\   --.|  |\ `--.' '-' '|  |  |  |\   --.      |  |  ' '-' '    |  | --' |  |\  \ '  '-'  '       |  '--'  /|  '--' /
+'--'   '--' `----'`--' `---' `---' `--`--`--' `----'      `--'   `---'     `--'     `--' '--' `-----'        `-------' `------'
+
+
+PRO-DB is a C based database management system that was developed by Josh Collins (me!) for my CS 457: Databases final
+project. This project started as a basic assignment submission, but quickly became something I felt a great desire to
+improve on, and make fully functional.
+
+I. File List
+------------
+main.c             Main driver file that reads and parses the input file to records and record attributes
+                   Also creates and writes all output to a file titled "jjcollins2.txt"
+record.c      	   Basic record class implementation with all necessary helper functions to create individual and list
+                   of record attributes
+record.h           Record class header file
+recordAttribute.c  Basic record attribute class implementation with helper functions to create individual and list of
+                   record attributes
+recordAttribute.h  Record attribute class header file
+
+Program can be built using default make arguments:
+
+    make
+
+Program object files can be removed and cleaned using default make clean arguments:
+
+    make clean
+
+Program can be ran by running the executable in the "CMakeFiles" directory titled "Final" (post a make command to build
+objects).
+
+II. Design
+------------
+
+1. General
+
+    PRO-DB is a C based database management system, which can read in records and record attributes to store,
+    manipulate, query, and sort the data in said records. The underlying implementation of this system is a 3
+    dimensional data cube (a list of lists of lists). This structure can be portrayed in the following two frames:
+
+    2 Dimensional Record Structure
+    ------------------------------
+
+    /******************/        /******************/        /******************/
+    /*                */        /*                */        /*                */
+    /*   Record 1     */   =>   /*   Record 2     */   =>   /*   Record 3     */
+    /*   Version 1    */        /*   Version 1    */        /*   Version 1    */
+    /*                */        /*                */        /*                */
+    /******************/        /******************/        /******************/
+
+            ||                           ||                          ||
+            vv                           vv                          vv
+
+    /******************/        /******************/        /******************/
+    /*                */        /*                */        /*                */
+    /*   Record 1     */        /*   Record 2     */        /*   Record 3     */
+    /*   Version 2    */        /*   Version 2    */        /*   Version 3    */
+    /*                */        /*                */        /*                */
+    /******************/        /******************/        /******************/
+
+    From here every record has a list of record attributes attached to it, as seen in the following frame:
+
+    Record Attribute Structure
+    --------------------------
