@@ -99,3 +99,81 @@ II. Design
      searching for a particular record in general, a user can expect an O(n^2) run time.
      Future improvements to this project include using hashing and various other structure
      methods to improve efficiency for storing data.
+
+2. Data Input Format
+
+    As of right now, the file is read in from a default file called data.txt. In
+    the future this file will be read through the command line as an argument. Assuming
+    good input, the data should always be the name of the attribute, immediately
+    followed by a colon, immediately followed by an integer value, followed by
+    a space to signify the next record attribute, as follows:
+
+        nameOfAttribute1:4 nameOfAttribute2:102 nameOfAttribute3:1234
+
+    Each line should contain a separate record, and each record must contain at least
+    one attribute named "DocID". If the user wanted to create two records, each with a
+    DocID attribute and an attribute named "empID", the data input should look as follows:
+
+        DocID:10 empID:15
+        DocID:11 empID:16
+
+3. Command Operations Functionality
+
+    A. General
+
+        All commands are currently being read in via an input file named "queries.txt".
+        In the future versions this file will be read in as the second command line argument.
+        All commands should be given their own line (one command per line). The program can
+        read multiple commands, and will process these commands sequential until the program
+        reaches the end of the queries file.
+
+    B. The Count Command
+
+        The collection for the database is called "final". As such the command to count
+        records in the collection is:
+
+            final.count([recordAttributeName], [versionNumber])
+
+        As such, if the user wanted to count the number of records that contain
+        the attribute "Dept" the second version of the record, the user would input the
+        following:
+
+            final.count([Dept], [2])
+
+    C.  The Insert Command
+
+        With this command, new records can be inserted into the database as follows:
+
+            final.insert(attribute1:a1Value attribute2:a2Value ...)
+
+        It is important to note that this feature will allow the user to insert as many
+        attributes as they would like, but the record must still include a "DocID" attribute.
+        If a user wishes to input a record that has a DocID of 4 and am attribute named "empID"
+        that contains a value of 4, it would look as such:
+
+            final.insert(DocID:4 empID:4)
+
+        It is important to note that only one record can be implemented per command. To insert
+        mutiple records, the insert command must be called multiple times.
+
+    D.  The Sort Command
+
+        This feature is in the process of being implemented.
+
+    E.  The Query Command
+
+        This feature is in the process of being implemented.
+
+III. Conclusion
+---------------
+
+1. Final Note
+
+   This project started as a final project for my Databases class, but I was not able to
+   complete it in time as I was drawn away to finish another class. However, I greatly enjoyed
+   working on it. I have come across many unique and interesting challenges with this
+   project, and I have had a great time overcoming them. As such, I am continuing to work
+   on it in my free time. - Josh
+
+
+
